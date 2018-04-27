@@ -1,0 +1,1316 @@
+###########################################################
+#                                                         #
+#                     TMWin 99 Practice                   #
+#                       developed by                      #
+#                      Shain Longbehn                     #
+#                                                         #
+###########################################################
+
+
+### The Python code is property of Shain Longbehn
+### The Ticketmaster code represented is not a property of Shain Longbehn
+
+from time import sleep
+import sys
+
+# Show Variables
+
+mainstage = 'Djembe'
+emerald_city = 'Knuffle Bunny'
+
+
+# Other Variables
+
+
+choice = ''
+cust_info =   '                    **********************************' \
+            '\n                    *    JOHN DOE                    *' \
+            '\n                    *    5551234567                  *' \
+            '\n                    *    JOHN.DOE@GMAIL.COM          *' \
+            '\n                    *    1313 MOCKINGBIRD LN         *' \
+            '\n                    *    CHICAGO, IL                 *' \
+            '\n                    *    60666                       *' \
+            '\n                    *    VISA: 1234 5678 8765 4321   *' \
+            '\n                    *    EXP: 04/20                  *' \
+            '\n                    **********************************'
+
+# String lists
+
+sell_types = '\n    -Typical sale\n    -Accessible Sale\n    ' \
+             '-Selling into multiple sections\n    ' \
+             '-Selling into existing account\n    ' \
+             '-Emerald City Subscriber Sale\n'
+
+emerald_city_types = '\n    -Find subscriber ID\n    -Sell subscriber tickets\n'
+
+retraction_types = '\n    -Full retractions\n    -Partial retractions\n'
+
+refunding_types = '\n    -P-CODE refund/resetting options\n    -S-CODE refund\n'
+
+
+# Choice Functions
+
+
+def initial_choice():
+    choice = input('\n\nWhat would you like to practice today?\n\n'
+                   'You can type something like \'Selling\' or \'Retracting\'.\n\n'
+                   'For a complete list, type \'List\'.\n')
+    if choice.lower() in ('selling', 'sell', 'sale'):
+        sell_choice()
+    elif choice.lower() in ('typical sale', 'standard sale', 'basic sale',
+                            'typical'):
+        typical_sale()
+    elif choice.lower() in ('accessible sale', 'accessible', 'wheel chair',
+                            'wheelchair'):
+        accessible_sale()
+    elif choice.lower() in ('selling into multiple sections', 'multiple sections',
+                            'cart', 'create a cart', 'create cart', 'back-add', 'multi',
+                            'multiple'):
+        multiple_sale()
+    elif choice.lower() in ('selling into existing account', 'existing customer',
+                            'existing sale', 'built account', 'existing account',
+                            'add to account', 'existing'):
+        existing_sale()
+    elif choice.lower() in ('emerald city', 'emerald city theater', 'ectc'):
+        emerald_city_choice()
+    elif choice.lower() in ('finding subscribers', 'find subscriber',
+                            'find subscribers', 'subscriber id', 'id number'):
+        subscriber_lookup()
+    elif choice.lower() in ('selling subscriptions', 'subscriber sale',
+                            'sell subsciber', 'sell subscriptions', 'ectc sale'):
+        subscriber_sale()
+    elif choice.lower() in ('ticket look-up', 'ticket lookup', 'ticket look up',
+                            'find tickets', 'ticket find', 'look up tickets'):
+        ticket_lookup()
+    elif choice.lower() in ('retracting', 'retraction', 'ticket retraction',
+                            'retract tickets', 'reacting tickets',
+                            'retract ticket'):
+        retraction_choice()
+    elif choice.lower() in ('full retraction', 'full retracting',
+                            'complete retraction'):
+        full_retraction()
+    elif choice.lower() in ('partial retraction', 'partial retracting',
+                            'partially retracting'):
+        partial_retraction()
+    elif choice.lower() in ('refund', 'refunding', 'refunds'):
+        refund_choice()
+    elif choice.lower() in ('p-code refund/resetting options', 'p-code',
+                            'p-code refunding', 'pcode', 'p code', 'reset options',
+                            'resetting options', 'option reset'):
+        pcode_refund()
+    elif choice.lower() in ('s-code refund', 's-code', 's-code refunding',
+                            'scode', 's code'):
+        scode_refund()
+    elif choice.lower() in ('print flag', 'release print flag', 'printflag',
+                            'rel s', 'release'):
+        print_flag()
+    elif choice.lower() in ('list'):
+        print('Selling:' + sell_types + 'Emerald City:' + emerald_city_types +
+              'Retraction types:' + retraction_types + 'Refunding:'
+              + refunding_types + 'Tickets:\n    -Ticket Look-up\n'
+              '    -Release print flag\n')
+        initial_choice()
+    else:
+        choice = input('That is not a valid command. Please try again: ')
+        initial_choice()
+
+
+def sell_choice():
+      choice = input('\nWhat kind of sale do you want to practice? \n' + sell_types)
+      if choice.lower() in ('typical sale', 'standard sale', 'basic sale', 'typical'):
+            typical_sale()
+      elif choice.lower() in ('accessible sale', 'accessible', 'wheel chair', 'wheelchair'):
+            accessible_sale()
+      elif choice.lower() in ('selling into multiple sections', 'multiple sections',
+                              'cart', 'create a cart', 'create cart', 'back-add', 'multi',
+                              'multiple'):
+            multiple_sale()
+      elif choice.lower() in ('selling into existing account', 'existing customer',
+                              'existing sale', 'built account', 'existing account',
+                              'add to account', 'existing', 'multi', 'multiple'):
+            existing_sale()
+      elif choice.lower() in ('selling subscriptions', 'subscriber sale', 'sell subsciber',
+                              'sell subscriptions', 'ectc sale', 'emerald city sale',
+                              'emerald city subscriber sale', 'emerald city subscription sale'):
+            subscriber_sale()
+      else:
+            print('Invalid input. Please try again')
+            sell_choice()
+
+
+def emerald_city_choice():
+      choice = input('What Emerald City practice do you want to do?' + emerald_city_types)
+      if choice.lower() in ('finding subscribers', 'find subscriber', 'find subscribers',
+                    'subscriber id', 'id number'):
+            subscriber_lookup()
+      elif choice.lower() in ('selling subscriptions', 'subscriber sale', 'sell subsciber',
+                              'sell subscriptions', 'ectc sale', 'emerald city sale',
+                              'emerald city subscriber sale', 'emerald city subscription sale'):
+            subscriber_sale()
+      else:
+            print('That is not a valid command. Please try again\n')
+            emerald_city_choice()
+
+
+def retraction_choice():
+      choice = input('What kind of retraction do you want to practice?')
+      if choice in ('full retraction', 'full retracting', 'complete retraction'):
+            full_retraction()
+      elif choice.lower() in ('partial retraction', 'partial retracting', 'partially retracting'):
+            partial_retraction()
+      else:
+            print('That is not a valid command. Please try again.\n')
+            retraction_choice()
+
+
+def refund_choice():
+      choice = input('What kind of refund do you want to practice?' + refunding_types)
+      if choice.lower() in ('p-code refund/resetting options', 'p-code', 'p-code refunding', 'pcode',
+                              'p code', 'reset options', 'resetting options', 'option reset'):
+            pcode_refund()
+      elif choice.lower() in ('s-code refund', 's-code', 's-code refunding', 'scode', 's code'):
+            scode_refund()
+      else:
+            print('That is not a valid command. Please try again.\n')
+            refund_choice()
+
+
+# Practice Functions
+
+
+def typical_sale():
+    print('\n****************************************************************************')
+    print('\nLet\'s begin a typical sale in your S-CODE.')
+    sleep(2)
+    print('\n\nThe customer would like four best available tickets to '
+        + mainstage + '\n     for the Saturday matinee on July 28th.')
+    sleep(3)
+    print('\n\nAt relevent points during this exercise, type \'CUSTINFO\' to see '
+          '\n    the customer\'s personal info:')
+    print(cust_info)
+    sleep(5)
+    s_code = input(
+        '\nTICKETMASTER' \
+        '\nILLINOIS / WISCONSIN' \
+        '\n** CODE ??  ')
+    while 'aps' not in s_code.lower():
+        print('Please enter your S-CODE')
+        s_code = input(
+        '\nTICKETMASTER' \
+        '\nILLINOIS / WISCONSIN' \
+        '\n** CODE ??  ')
+    print('            You do not need to enter your password here, enter through')
+    input('** PASSWORD ??  ')
+    input('** RESET PASSWORD ??  ')
+
+    s_true = input('\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+                 '\n\n** NEXT (CH5) ??  ')
+    while s_true.lower() not in ('s', 'sell'):
+        print('INVALID COMMAND FOR THIS EXERCISE')
+        s_true = input('\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+                       '\n\n** NEXT (CH5) ??  ')
+    event_code_true = input('** SELL ORDER (CH5) ??  ')
+    while event_code_true.lower() != 'eap0728m':
+        print('INVALID SHOW CODE FOR THIS EXERCISE')
+        event_code_true = input('** SELL ORDER (CH5) ??  ')
+    x_true = input(
+        '\n    We Bring the Drums'
+        '\n     Djembe! The Show'
+        '\n    You Bring The Beat'
+        '\n      APOLLO THEATER'
+        '\n2540 N LINCOLN - CHICAGO'
+        '\n SAT JULY 28 2018 2:00 PM'
+        '\n(CHGO) DJEMBE! THE SHOW-SAT 2:00PM/APOLLO THEATER\n'
+        '\nSEC 3       3333333333333333'
+        '\n            0000000001111111'
+        '\n   X1       1234567890123456'
+        '\n          A          -------'
+        '\n          B            -----'
+        '\n          C           00----'
+        '\n          D 5555          --'
+        '\n          E           00000-'
+        '\n 99.00:A'
+        '\n 64.50:EBG59'
+        '\nCURRENT EVENT:   EAP0728M X1'
+        '\nSEC 3 : FRCTR    P1      FLOOR   FULL'
+        '\nCenter Section 1-6 Rows from Stage'
+        '\nPrice Level 1'
+        '\nMain Floor Seating\n'
+        '\n** SELL ORDER (CH5) ??  '
+    )
+    while x_true.lower() != 'x2':
+        if 're' in x_true.lower():
+            print('            You cannot leave single seats, please proceed to'
+                  '            the next X number\n')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            x_true = input('\n** SELL ORDER (CH5) ??  ')
+        x_true = input('\n** SELL ORDER (CH5) ??  ')
+    seat_true = input(
+        '\nSEC 4       444444'
+        '\n            000000'
+        '\n   X2       123456'
+        '\n          A   ----'
+        '\n          B 000---'
+        '\n          C 0000--'
+        '\n          D 000000'
+        '\n 99.00:A'
+        '\n 64.50:EBG59'
+        '\nCURRENT EVENT:   EAP0728M X2'
+        '\nSEC 4 : P1       RTCTR14 FLOOR  FULL'
+        '\nPrice Level 1'
+        '\nOne Section Right of Center 1-4 Rows from Stage'
+        '\nMain Floor Seating\n'
+        '\n** SELL ORDER (CH5) ??  '
+    )
+    while seat_true.lower() != 'rc/s401-404/a4#':
+        if seat_true.lower() == 'rc/s401-404/a4':
+              print('            Remember to add the qualifier # at the end')
+              seat_true = input('\n** SELL ORDER (CH5) ??  ')
+        else:
+              print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+              seat_true = input('\n** SELL ORDER (CH5) ??  ')
+    print('\n            The customer said they learned about the show on our website.\n')
+    qualifier_true = input('QUALIFIERS SPANNING THE ORDER'
+                         '\nSEAT QUALIFIER (? FOR LIST) ??  '
+                         )
+    while qualifier_true.lower() != 'apweb':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        qualifier_true = input('QUALIFIERS SPANNING THE ORDER'
+                         '\nSEAT QUALIFIER (? FOR LIST) ??  '
+                         )
+    extra_qualifier = input('SEAT QUALIFIER (? FOR LIST) ??  '
+                          )
+    while extra_qualifier != '':
+        print('            You don\'t need to add any more qualifiers, enter through')
+        extra_qualifier = input('SEAT QUALIFIER (? FOR LIST) ??  '
+                                )
+    extra2_qualifier = input('QUALIFIERS FOR ENTRY 2 ADULT'
+                           '\nSEAT QUALIFIER (? FOR LIST) ??  ')
+    while extra2_qualifier != '':
+        print('            You don\'t need to add anymore qualifiers, enter through')
+        extra2_qualifier = input('QUALIFIERS FOR ENTRY 2 ADULT '
+                                 'SEAT QUALIFIER (? FOR LIST) ??  ')
+    cancel_qualifier = input('QUALIFIERS SPANNING THE ORDER'
+                             '\nAPWEB'
+                             '\nQUALIFIERS FOR ENTRY 2 ADULT'
+                             '\nAPWEB'
+                             '\nCANCEL QUALIFIER SELECTION ??  '
+                             )
+    while cancel_qualifier != '':
+        print('            You don\'t need to add anymore qualifiers, enter through')
+        cancel_qualifier = input('QUALIFIERS SPANNING THE ORDER'
+                           '\nAPWEB'
+                           '\nQUALIFIERS FOR ENTRY 2 ADULT'
+                           '\nAPWEB'
+                           '\nCANCEL QUALIFIER SELECTION ??  '
+                           )
+    accn_true = input('\nROW C, SEATS 401 TO 404'
+                    '\nTOTAL WITHOUT SERVICE CHARGE = 369.00'
+                    '\n** METHOD OF PAYMENT ??  ')
+    while accn_true.lower() != 'accn':
+        print('INVALID COMMAND, PLEASE TRY AGAIN')
+        accn_true = input('\nROW E, SEATS 401 TO 404'
+                          '\nTOTAL WITHOUT SERVICE CHARGE = 369.00'
+                          '\n** METHOD OF PAYMENT ??  ')
+    accn_cancel = input('TOTAL INCLUDING SERVICE CHARGE = 426.00'
+                      '\nCANCEL OR ALTERNATE PAYMENT METHOD ??  '
+                      )
+    while accn_cancel.lower() != '':
+        print('INVALID COMMAND, PLEASE TRY AGAIN')
+        accn_cancel = input('TOTAL INCLUDING SERVICE CHARGE = 426.00'
+                            '\nCANCEL OR ALTERNATE PAYMENT METHOD ??  '
+                            )
+    payment_method_true = input('\n** ACCOUNT PAYMENT METHOD ??  ')
+    while payment_method_true.lower() != 'visa':
+      if payment_method_true.lower() == 'custinfo':
+          print(cust_info)
+          payment_method_true = input('** ACCOUNT PAYMENT METHOD ??  ')
+      else:
+          print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+          payment_method_true = input('** ACCOUNT PAYMENT METHOD ??  ')
+    accn_number_true = input('** ACCOUNT NUMBER ??  ')
+    while accn_number_true.lower() != 'ne':
+      print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+      accn_number_true = input('** ACCOUNT NUMBER ??  ')
+    print('NEW ACCOUNT NO. IS23-51867\n\n')
+    sleep(.5)
+    cust_name = input('** NAME          ??  ')
+    while cust_name.lower() != 'doe/john':
+        if cust_name.lower() == 'custinfo':
+            print(cust_info)
+            cust_name = input('** NAME          ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_name = input('** NAME          ??  ')
+    cust_phone = input('** PHONE         ??  ')
+    while cust_phone != '5551234567':
+        if cust_phone.lower() == 'custinfo':
+            print(cust_info)
+            cust_phone = input('** PHONE         ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_phone = input('** PHONE         ??  ')
+    cust_email = input('** EXTRA 1       ??  ')
+    while cust_email.lower() != 'john.doe@gmail.com':
+        if cust_email.lower() == 'custinfo':
+            print(cust_info)
+            cust_email = input('** EXTRA 1       ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_email = input('** EXTRA 1       ??  ')
+    cust_confirm = input('** EXTRA 2       ??  ')
+    print('                    There are several ways to do this. '
+          '\n                  Ensure you confirmed:'
+          '\n                      -Number of tickets'
+          '\n                      -Show name'
+          '\n                      -Day of the week'
+          '\n                      -Month and day'
+          '\n                      -Time of show'
+          '\n                  ex: A4 DJ SAT 0728 2PM'
+          )
+    sleep(5)
+    cust_address = input('** ADDRESS       ??  ')
+    while cust_address.lower() != '1313 mockingbird ln':
+        if cust_address.lower() == 'custinfo':
+            print(cust_info)
+            cust_address = input('** ADDRESS       ??  ')
+        elif cust_address.lower() == '1313 mockingbird lane':
+            cust_address = '1313 mockingbird ln'
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_address = input('** ADDRESS       ??  ')
+    cust_city = input('** CITY-STATE    ??  ')
+    while cust_city.lower() != 'chicago, il':
+        if cust_email.lower() == 'custinfo':
+            print(cust_info)
+            cust_email = input('** CITY-STATE    ??  ')
+        elif cust_city.lower() == 'chicago,il':
+            cust_city = 'chicago, il'
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_city = input('** CITY-STATE    ??  ')
+    cust_zip = input('** ZIP CODE      ??  ')
+    while cust_zip.lower() != '60666':
+        if cust_zip.lower() == 'custinfo':
+            print(cust_info)
+            cust_zip = input('** ZIP CODE      ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_zip = input('** ZIP CODE      ??  ')
+    cust_policy = input('** COMMENT       ??  ')
+    while 'cp' not in cust_policy.lower():
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE AGAIN')
+        cust_policy = input('** COMMENT       ??  ')
+    fieldname = input('** EXTENDED FIELD NAME ??  ')
+    while fieldname != '':
+        print('            You do not need to enter anything here in a typical sale, '
+              'enter through')
+        fieldname = input('** EXTENDED FIELD NAME ??  ')
+    fake_options = input('\n\nEXTENDED OPTION NUMBER ??  ')
+    while fake_options != '':
+        print('            You will never enter anything here in any sale,'
+              'enter through')
+        fake_options = input('EXTENDED OPTION NUMBER?  ')
+    reset_options = input('EAP0728M ** RESET OPTION COUNT: OPTION NO. ??  ')
+    while reset_options != '':
+        print('            You do not need to add fees/options to S-CODE sales,'
+              'enter through')
+        reset_options = input('EAP0728M ** RESET OPTION COUNT: OPTION NO. ??  ')
+    accn_number_true = input('MAKE PAYMENT:'
+                             '\n\n** ACCOUNT NUMBER ?? '
+                             )
+    while accn_number_true.lower() != ('la' or '23-51867'):
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        accn_number_true = input('MAKE PAYMENT:'
+                             '\n\n** ACCOUNT NUMBER ?? '
+                             )
+    pay_event = input('23-51867'
+          '\n******************************************************************************'
+          '\n\nDOE/JOHN                       JOHN.DOE@GMAILL.COM                    23-51867'
+          '\n1313 MOCKINGBIRD LN             A4 DJ SAT 0728 8PM            19-APR-18 '
+                      + s_code.upper() +
+          '\nCHICAGO,IL                                                                '
+          '\n60666      5551234567/                                                        '
+          '\n' + cust_policy.upper() + \
+          '                                                        426.00      0.00'
+          '\n\nEAP0728M                                                     426.00      0.00'
+          '\n1- /X 2(SEC 4 )/R C,S 401-S 404,A 4 SE# 396.00 / 30.00'
+          '\nA 4 APWEB'
+          '\n19-APR-18 ' + s_code.upper() + ' VISA'
+          '\n\nBALANCE DUE: 426.00'
+          '\n** PAY TO EVENT ??  ')
+    while pay_event.lower() != 'al':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        pay_event = input('** PAY TO EVENT ??  ')
+    card_confirm = input('** BANK CARD ABBREVIATION VISA ??  ')
+    while card_confirm != '':
+        print('            You do not need to enter anything here unless the customer '
+              'changes the payment method, enter through')
+        card_confirm = input('** BANK CARD ABBREVIATION VISA ??  ')
+    card_number = input('** BANK CARD NO. ??  ')
+    while card_number != '1234567887654321':
+        if card_number.lower() == 'custinfo':
+            print(cust_info)
+            card_number = input('** BANK CARD NO. ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            card_number = input('** BANK CARD NO. ??  ')
+    card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+    while card_expiration != '04/20':
+        if card_expiration.lower() == 'custinfo':
+            print(cust_info)
+            card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+    check = input('** SELL ORDER (CH5) ??  ')
+    while check != '@':
+        print('            You can type @ after a sale to see the last account')
+        check = input('** SELL ORDER (CH5) ??  ')
+    print('23-51867' 
+          '\n******************************************************************************'
+          '\n\nDOE/JOHN                       JOHN.DOE@GMAILL.COM                    23-51867'
+          '\n1313 MOCKINGBIRD LN             A4 DJ SAT 0728 8PM            19-APR-18 '
+                      + s_code.upper() +
+          '\nCHICAGO,IL                                                                '
+          '\n60666      5551234567/                                                        '
+          '\n' + cust_policy.upper() + \
+          '                                                        426.00      0.00'
+          '\n\nEAP0728M                                                     426.00      0.00'
+          '\n1- /X 2(SEC 4 )/R C,S 401-S 404,A 4 SE# 396.00 / 30.00'
+          '\nA 4 APWEB'
+          '\n19-APR-18 ' + s_code.upper() + ' VISA'           
+          '\n\n1  19-APR-18    426.00(  0)                                            426.00\n' +
+          s_code.upper() + '      VISA  ************4321          25429           (YI)'
+          )
+    sleep(2)
+    print('\nSale successful!')
+    sleep(1.5)
+    print('\nReturning to practice selection...')
+    sleep(1)
+    print('\n****************************************************************************')
+    initial_choice()
+
+
+def accessible_sale():
+    print('\n****************************************************************************')
+    print('\nLet\'s begin an accessible sale in your S-CODE')
+    sleep(3)
+    print('\nPlease note that the studio theater is not accessible, only the '
+          '\nmain theater is.')
+    sleep(3)
+    print('\nBefore you sell the floor seats, ask the customer what kind of '
+          '\naccessibility they need.')
+    sleep(5)
+    print('\nSome customers can walk up some or all stairs when they have a railing.'
+          '\nAsk them to be specific. Rows with railings are:'
+          '\n          -S3/RA-G'
+          '\n          -S2/RC'
+          '\n          -S2/RH-J')
+    sleep(5)
+    print('\nThe accessible seats are extremely limited (two seats), so if someone can'
+          '\ngo up even two steps, we can hold them for someone who might be in a'
+          '\nwheel chair, for example.')
+    sleep(5)
+    print('\n\nThe customer would like the two accessible seats to '
+          + mainstage + '\n     for Friday, July 6th. One of them is in a wheel '
+                        '\n     chair and will need the lift.')
+    sleep(3)
+    print('\n\nAt relevent points during this exercise, type \'CUSTINFO\' to see '
+          '\n    the customer\'s personal info:')
+    print(cust_info)
+    sleep(5)
+    s_code = input(
+        '\nTICKETMASTER' \
+        '\nILLINOIS / WISCONSIN' \
+        '\n** CODE ??  ')
+    while 'aps' not in s_code.lower():
+        print('Please enter your S-CODE')
+        s_code = input(
+            '\nTICKETMASTER' \
+            '\nILLINOIS / WISCONSIN' \
+            '\n** CODE ??  ')
+    print('            You do not need to enter your password here, enter through')
+    input('** PASSWORD ??  ')
+    input('** RESET PASSWORD ??  ')
+    s_true = input('\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+                   '\n\n** NEXT (CH5) ??  ')
+    while s_true.lower() not in ('s', 'sell'):
+        print('INVALID COMMAND FOR THIS EXERCISE')
+        s_true = input('\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+                       '\n\n** NEXT (CH5) ??  ')
+    event_code_true = input('** SELL ORDER (CH5) ??  ')
+    while event_code_true.lower() != 'eap0706':
+        print('INVALID SHOW CODE FOR THIS EXERCISE')
+        event_code_true = input('** SELL ORDER (CH5) ??  ')
+    x_true = input(
+        '\n    We Bring the Drums'
+        '\n     Djembe! The Show'
+        '\n    You Bring The Beat'
+        '\n      APOLLO THEATER'
+        '\n2540 N LINCOLN - CHICAGO'
+        '\n  FRI JULY 6 2018 7:30 PM'
+        '\n(CHGO) DJEMBE! THE SHOW-SAT 2:00PM/APOLLO THEATER\n'
+        '\nSEC 3       3333333333333333'
+        '\n            0000000001111111'
+        '\n   X1       1234567890123456'
+        '\n          A          -------'
+        '\n          B            -----'
+        '\n          C       000000----'
+        '\n          D 55550000000000--'
+        '\n          E 000000000000000-'
+        '\n 99.00:A'
+        '\n 64.50:EBG59'
+        '\nCURRENT EVENT:   EAP0728M X1'
+        '\nSEC 3 : FRCTR    P1      FLOOR   FULL'
+        '\nCenter Section 1-6 Rows from Stage'
+        '\nPrice Level 1'
+        '\nMain Floor Seating\n'
+        '\n** SELL ORDER (CH5) ??  '
+    )
+    while x_true.lower() != 'x12':
+        if 'x' in x_true.lower():
+            print('            Incorrect X number for the accessible seats, '
+                  '\n            please try again.')
+            x_true = input('\n** SELL ORDER (CH5) ??  ')
+        else:
+            'INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN'
+            x_true = input('\n** SELL ORDER (CH5) ??  ')
+    seat_true = input('\nSEC 2 22'
+                      '\n      00'
+                      '\nX10   12'
+                      '\n   AA 22'
+                      '\n99.00:A'
+                      '\n64.50:EBG59'
+                      '\nCURRENT EVENT: EAG0513 X10'
+                      '\nSEC 2 : WC CHAIRS P2'
+                      '\nACCESSIBLE SEATS, PADDED CHAIRS'
+                      '\n*WARNING* PADDED CHRS NOT THEATER SEATS'
+                      '\nPRICE LEVEL 2'
+                      '\n\n** SELL ORDER (05) ??  ')
+    while seat_true.lower() != 'raa/s201-202/a2#':
+        if seat_true.lower() == 'raa/s201-202/a2':
+              print('            Remember to add the qualifier # at the end')
+              seat_true = input('\n** SELL ORDER (CH5) ??  ')
+        else:
+              print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+              seat_true = input('\n** SELL ORDER (CH5) ??  ')
+    print('\n            The customer said they learned about the show from their friend.\n')
+    qualifier_true = input('QUALIFIERS SPANNING THE ORDER'
+                         '\nSEAT QUALIFIER (? FOR LIST) ??  '
+                         )
+    while qualifier_true.lower() != 'wom':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        qualifier_true = input('QUALIFIERS SPANNING THE ORDER'
+                         '\nSEAT QUALIFIER (? FOR LIST) ??  '
+                         )
+    extra_qualifier = input('SEAT QUALIFIER (? FOR LIST) ??  '
+                          )
+    while extra_qualifier != '':
+        print('            You don\'t need to add any more qualifiers, enter through')
+        extra_qualifier = input('SEAT QUALIFIER (? FOR LIST) ??  '
+                                )
+    extra2_qualifier = input('QUALIFIERS FOR ENTRY 2 ADULT'
+                           '\nSEAT QUALIFIER (? FOR LIST) ??  ')
+    while extra2_qualifier != '':
+        print('            You don\'t need to add anymore qualifiers, enter through')
+        extra2_qualifier = input('QUALIFIERS FOR ENTRY 2 ADULT '
+                                 'SEAT QUALIFIER (? FOR LIST) ??  ')
+    cancel_qualifier = input('QUALIFIERS SPANNING THE ORDER'
+                             '\nWOM'
+                             '\nQUALIFIERS FOR ENTRY 2 ADULT'
+                             '\nWOM'
+                             '\nCANCEL QUALIFIER SELECTION ??  '
+                             )
+    while cancel_qualifier != '':
+        print('            You don\'t need to add anymore qualifiers, enter through')
+        cancel_qualifier = input('QUALIFIERS SPANNING THE ORDER'
+                           '\nWOM'
+                           '\nQUALIFIERS FOR ENTRY 2 ADULT'
+                           '\nWOM'
+                           '\nCANCEL QUALIFIER SELECTION ??  '
+                           )
+    accn_true = input('\nROW AA, SEATS 201 TO 202'
+                    '\nTOTAL WITHOUT SERVICE CHARGE = 198.00'
+                    '\n** METHOD OF PAYMENT ??  ')
+    while accn_true.lower() != 'accn':
+        print('INVALID COMMAND, PLEASE TRY AGAIN')
+        accn_true = input('\nROW AA, SEATS 201 TO 202'
+                          '\nTOTAL WITHOUT SERVICE CHARGE = 198.00'
+                          '\n** METHOD OF PAYMENT ??  ')
+    accn_cancel = input('TOTAL INCLUDING SERVICE CHARGE = 213.00'
+                      '\nCANCEL OR ALTERNATE PAYMENT METHOD ??  '
+                      )
+    while accn_cancel.lower() != '':
+        print('INVALID COMMAND, PLEASE TRY AGAIN')
+        accn_cancel = input('TOTAL INCLUDING SERVICE CHARGE = 213.00'
+                            '\nCANCEL OR ALTERNATE PAYMENT METHOD ??  '
+                            )
+    payment_method_true = input('\n** ACCOUNT PAYMENT METHOD ??  ')
+    while payment_method_true.lower() != 'visa':
+      if payment_method_true.lower() == 'custinfo':
+          print(cust_info)
+          payment_method_true = input('** ACCOUNT PAYMENT METHOD ??  ')
+      else:
+          print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+          payment_method_true = input('** ACCOUNT PAYMENT METHOD ??  ')
+    accn_number_true = input('** ACCOUNT NUMBER ??  ')
+    while accn_number_true.lower() != 'ne':
+      print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+      accn_number_true = input('** ACCOUNT NUMBER ??  ')
+    print('NEW ACCOUNT NO. IS23-51867\n\n')
+    sleep(.5)
+    cust_name = input('** NAME          ??  ')
+    while cust_name.lower() != 'doe/john':
+        if cust_name.lower() == 'custinfo':
+            print(cust_info)
+            cust_name = input('** NAME          ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_name = input('** NAME          ??  ')
+    cust_phone = input('** PHONE         ??  ')
+    while cust_phone != '5551234567':
+        if cust_phone.lower() == 'custinfo':
+            print(cust_info)
+            cust_phone = input('** PHONE         ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_phone = input('** PHONE         ??  ')
+    cust_email = input('** EXTRA 1 ??  ')
+    while cust_email.lower() != 'john.doe@gmail.com':
+        if cust_email.lower() == 'custinfo':
+            print(cust_info)
+            cust_email = input('** EXTRA 1       ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_email = input('** EXTRA 1       ??  ')
+    cust_confirm = input('** EXTRA 2       ??  ')
+    print('                    There are several ways to do this. '
+          '\n                  Ensure you confirmed:'
+          '\n                      -Number of tickets'
+          '\n                      -Show name'
+          '\n                      -Day of the week'
+          '\n                      -Month and day'
+          '\n                      -Time of show'
+          '\n                  ex: A2 DJ FRI 0706 8PM'
+          )
+    sleep(5)
+    cust_address = input('** ADDRESS       ??  ')
+    while cust_address.lower() != '1313 mockingbird ln':
+        if cust_address.lower() == 'custinfo':
+            print(cust_info)
+            cust_address = input('** ADDRESS       ??  ')
+        elif cust_address.lower() == '1313 mockingbird lane':
+            cust_address = '1313 mockingbird ln'
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_address = input('** ADDRESS       ??  ')
+    cust_city = input('** CITY-STATE    ??  ')
+    while cust_city.lower() != 'chicago, il':
+        if cust_email.lower() == 'custinfo':
+            print(cust_info)
+            cust_email = input('** CITY-STATE    ??  ')
+        elif cust_city.lower() == 'chicago,il':
+            cust_city = 'chicago, il'
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_city = input('** CITY-STATE    ??  ')
+    cust_zip = input('** ZIP CODE      ??  ')
+    while cust_zip.lower() != '60666':
+        if cust_zip.lower() == 'custinfo':
+            print(cust_info)
+            cust_zip = input('** ZIP CODE      ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_zip = input('** ZIP CODE      ??  ')
+    cust_policy = input('** COMMENT       ??  ')
+    while 'cp' not in cust_policy.lower():
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        cust_policy = input('** COMMENT       ??  ')
+    fieldname = input('** EXTENDED FIELD NAME ??  ')
+    while fieldname.lower() != 'comment1':
+        print('            In accessible sales, you need to add a comment about'
+              '\n            the customer\'s accessibility needs.')
+        fieldname = input('** EXTENDED FIELD NAME ??  ')
+    comment1 = input('COMMENT1  ??  ')
+    while 'lift' not in comment1.lower():
+        print('            Remember to make note if they need the lift')
+        comment1 = input('COMMENT1  ??  ')
+    while ('wheelchair') not in comment1:
+        if 'wheel chair' in comment1:
+            break
+        else:
+            print('            Remember to make note about their chair')
+            comment1 = input('+COMMENT1:  ')
+    fake_options = input('\n\nEXTENDED OPTION NUMBER ??  ')
+    while fake_options != '':
+        print('            You will never enter anything here in any sale,'
+              'enter through')
+        fake_options = input('EXTENDED OPTION NUMBER?  ')
+    reset_options = input('EAP0728M ** RESET OPTION COUNT: OPTION NO. ??  ')
+    while reset_options != '':
+        print('            You do not need to add fees/options to S-CODE sales,'
+              'enter through')
+        reset_options = input('EAP0728M ** RESET OPTION COUNT: OPTION NO. ??  ')
+    accn_number_true = input('MAKE PAYMENT:'
+                             '\n\n** ACCOUNT NUMBER ?? '
+                             )
+    while accn_number_true.lower() != ('la' or '23-51867'):
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        accn_number_true = input('MAKE PAYMENT:'
+                             '\n\n** ACCOUNT NUMBER ?? '
+                             )
+    pay_event = input('23-51867'
+          '\n******************************************************************************'
+          '\n\nDOE/JOHN                       JOHN.DOE@GMAILL.COM                    23-51867'
+          '\n1313 MOCKINGBIRD LN            A2 DJ FRI 0706 8PM             19-APR-18 '
+                      + s_code.upper() +
+          '\nCHICAGO,IL                                                                '
+          '\n60666      5551234567/                                                        '
+          '\n' + cust_policy.upper() + \
+          '                                                        213.00      0.00'
+          '\n\nEAP0706                                                      213.00      0.00'
+          '\n1- /X 12(SEC 2 )/R AA,S 201-S 202,A 2 SE# 198.00 / 15.00'
+          '\nA 2 WOM'
+          '\n19-APR-18 ' + s_code.upper() + ' VISA'
+          '\n\nBALANCE DUE: 213.00'
+          '\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+          '\n** PAY TO EVENT ??  ')
+    while pay_event.lower() != 'al':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        pay_event = input('** PAY TO EVENT ??  ')
+    card_confirm = input('** BANK CARD ABBREVIATION VISA ??  ')
+    while card_confirm != '':
+        print('            You do not need to enter anything here unless the customer'
+              '\n            changes the payment method, enter through')
+        card_confirm = input('** BANK CARD ABBREVIATION VISA ??  ')
+    card_number = input('** BANK CARD NO. ??  ')
+    while card_number != '1234567887654321':
+        if card_number.lower() == 'custinfo':
+            print(cust_info)
+            card_number = input('** BANK CARD NO. ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            card_number = input('** BANK CARD NO. ??  ')
+    card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+    while card_expiration != '04/20':
+        if card_expiration.lower() == 'custinfo':
+            print(cust_info)
+            card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+    check = input('** SELL ORDER (CH5) ??  ')
+    while check != '@':
+        print('            You can type @ after a sale to see the last account')
+        check = input('** SELL ORDER (CH5) ??  ')
+    print('23-51867'
+          '\n******************************************************************************'
+          '\n\nDOE/JOHN                       JOHN.DOE@GMAILL.COM                    23-51867'
+          '\n1313 MOCKINGBIRD LN              A2 DJ FRI 0706 8PM           19-APR-18 '
+                      + s_code.upper() +
+          '\nCHICAGO,IL                                                                '
+          '\n60666      5551234567/                                                        '
+          '\n' + cust_policy.upper() + \
+          '                                                        213.00      0.00'
+          '\n+COMMENT 1: ' + comment1.upper() +
+          '\n\nEAP0706                                                      213.00      0.00'
+          '\n1- /X 12(SEC 2 )/R AA,S 201-S 202,A 2 SE# 198.00 / 15.00'
+          '\nA 2 WOM'
+          '\n19-APR-18 ' + s_code.upper() + ' VISA'          
+          '\n\n1  19-APR-18    213.00(  0)                                            213.00\n' +
+          s_code.upper() + '      VISA  ************4321          25429           (YI)')
+    sleep(2)
+    print('\nSale successful!')
+    sleep(1.5)
+    print('\nNow that you made the sale, be sure to fill in the customer\'s\n'
+          '    info on the box office board and the calendar near the time sheets.')
+    sleep(3)
+    print('\nReturning to practice selection...')
+    sleep(1)
+    print('\n****************************************************************************')
+    initial_choice()
+
+
+def multiple_sale():
+    print('\n****************************************************************************')
+    print('\nLet\'s begin a separated seat sale.')
+    sleep(2)
+    print('\nThere are two ways to sell separated seats: by creating a cart, or the '
+          '\n    back-add method.')
+    sleep(3)
+    print('\nIn this exercise we will focus on the back-add method. If you\'re interested'
+          '\n    in how to create a cart, please reference the Box Office Bible')
+    sleep(4)
+    print('\n\nThe customer would like 6 tickets to '
+          + mainstage + '\n     for the Sunday evening performance on August 19th.'
+                        '\n     They really want to sit in section 3 in the best seats available.')
+    sleep(4)
+    print('\n\nAt relevent points during this exercise, type \'CUSTINFO\' to see '
+          '\n    the customer\'s personal info:\n')
+    print(cust_info)
+    sleep(5)
+    s_code = input(
+        '\nTICKETMASTER' \
+        '\nILLINOIS / WISCONSIN' \
+        '\n** CODE ??  ')
+    while 'aps' not in s_code.lower():
+        print('    Please enter your S-CODE')
+        s_code = input(
+            '\nTICKETMASTER' \
+            '\nILLINOIS / WISCONSIN' \
+            '\n** CODE ??  ')
+    print('            You do not need to enter your password here, enter through')
+    input('** PASSWORD ??  ')
+    input('** RESET PASSWORD ??  ')
+    s_true = input('\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+                   '\n\n** NEXT (CH5) ??  ')
+    while s_true.lower() not in ('s', 'sell'):
+        print('INVALID COMMAND FOR THIS EXERCISE')
+        s_true = input('\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+                       '\n\n** NEXT (CH5) ??  ')
+    event_code_true = input('** SELL ORDER (CH5) ??  ')
+    while event_code_true.lower() != 'eap0819e':
+        print('INVALID SHOW CODE FOR THIS EXERCISE')
+        event_code_true = input('** SELL ORDER (CH5) ??  ')
+    seat_true = input(
+        '\n    We Bring the Drums'
+        '\n     Djembe! The Show'
+        '\n    You Bring The Beat'
+        '\n      APOLLO THEATER'
+        '\n2540 N LINCOLN - CHICAGO'
+        '\n SUN AUG 19 2018 5:00 PM'
+        '\n(CHGO) DJEMBE! THE SHOW-SUN 5:00PM/APOLLO THEATER\n'
+        '\nSEC 3       3333333333333333'
+        '\n            0000000001111111'
+        '\n   X1       1234567890123456'
+        '\n          A       000-------'
+        '\n          B 000      00-----'
+        '\n          C 000         ----'
+        '\n          D 5555          --'
+        '\n          E                -'
+        '\n 99.00:A'
+        '\n 64.50:EBG59'
+        '\nCURRENT EVENT:   EAP0819E X1'
+        '\nSEC 3 : FRCTR    P1      FLOOR   FULL'
+        '\nCenter Section 1-6 Rows from Stage'
+        '\nPrice Level 1'
+        '\nMain Floor Seating\n'
+        '\n** SELL ORDER (CH5) ??  '
+    )
+    while seat_true.lower() != 'rb/s301-303/a3#':
+        if seat_true.lower() == 'rb/s301-303/a3':
+            print('            Remember to add the qualifier # at the end')
+            seat_true = input('\n** SELL ORDER (CH5) ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            seat_true = input('\n** SELL ORDER (CH5) ??  ')
+    print('\n            The customer said they learned about the show in the Tribune.\n')
+    qualifier_true = input('QUALIFIERS SPANNING THE ORDER'
+                           '\nSEAT QUALIFIER (? FOR LIST) ??  '
+                           )
+    while qualifier_true.lower() != 'trib':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        qualifier_true = input('QUALIFIERS SPANNING THE ORDER'
+                               '\nSEAT QUALIFIER (? FOR LIST) ??  '
+                               )
+    extra_qualifier = input('SEAT QUALIFIER (? FOR LIST) ??  '
+                            )
+    while extra_qualifier != '':
+        print('            You don\'t need to add any more qualifiers, enter through')
+        extra_qualifier = input('SEAT QUALIFIER (? FOR LIST) ??  '
+                                )
+    extra2_qualifier = input('QUALIFIERS FOR ENTRY 2 ADULT'
+                             '\nSEAT QUALIFIER (? FOR LIST) ??  ')
+    while extra2_qualifier != '':
+        print('            You don\'t need to add anymore qualifiers, enter through')
+        extra2_qualifier = input('QUALIFIERS FOR ENTRY 2 ADULT '
+                                 'SEAT QUALIFIER (? FOR LIST) ??  ')
+    cancel_qualifier = input('QUALIFIERS SPANNING THE ORDER'
+                             '\nTRIB'
+                             '\nQUALIFIERS FOR ENTRY 2 ADULT'
+                             '\nTRIB'
+                             '\nCANCEL QUALIFIER SELECTION ??  '
+                             )
+    while cancel_qualifier != '':
+        print('            You don\'t need to add anymore qualifiers, enter through')
+        cancel_qualifier = input('QUALIFIERS SPANNING THE ORDER'
+                                 '\nTRIB'
+                                 '\nQUALIFIERS FOR ENTRY 2 ADULT'
+                                 '\nTRIB'
+                                 '\nCANCEL QUALIFIER SELECTION ??  '
+                                 )
+    accn_true = input('\nROW B, SEATS 301 TO 303'
+                      '\nTOTAL WITHOUT SERVICE CHARGE = 297.50'
+                      '\n** METHOD OF PAYMENT ??  ')
+    while accn_true.lower() != 'accn':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        accn_true = input('\nROW B, SEATS 301 TO 303'
+                          '\nTOTAL WITHOUT SERVICE CHARGE = 297.00'
+                          '\n** METHOD OF PAYMENT ??  ')
+    accn_cancel = input('TOTAL INCLUDING SERVICE CHARGE = 319.50'
+                        '\nCANCEL OR ALTERNATE PAYMENT METHOD ??  '
+                        )
+    while accn_cancel.lower() != '':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        accn_cancel = input('TOTAL INCLUDING SERVICE CHARGE = 319.50'
+                            '\nCANCEL OR ALTERNATE PAYMENT METHOD ??  '
+                            )
+    payment_method_true = input('\n** ACCOUNT PAYMENT METHOD ??  ')
+    while payment_method_true.lower() != 'visa':
+        if payment_method_true.lower() == 'custinfo':
+            print(cust_info)
+            payment_method_true = input('** ACCOUNT PAYMENT METHOD ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            payment_method_true = input('** ACCOUNT PAYMENT METHOD ??  ')
+    accn_number_true = input('** ACCOUNT NUMBER ??  ')
+    while accn_number_true.lower() != 'ne':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        accn_number_true = input('** ACCOUNT NUMBER ??  ')
+    print('NEW ACCOUNT NO. IS23-51867\n\n')
+    sleep(.5)
+    cust_name = input('** NAME          ??  ')
+    while cust_name.lower() != 'doe/john':
+        if cust_name.lower() == 'custinfo':
+            print(cust_info)
+            cust_name = input('** NAME          ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_name = input('** NAME          ??  ')
+    cust_phone = input('** PHONE         ??  ')
+    while cust_phone != '5551234567':
+        if cust_phone.lower() == 'custinfo':
+            print(cust_info)
+            cust_phone = input('** PHONE         ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_phone = input('** PHONE         ??  ')
+    cust_email = input('** EXTRA 1       ??  ')
+    while cust_email.lower() != 'john.doe@gmail.com':
+        if cust_email.lower() == 'custinfo':
+            print(cust_info)
+            cust_email = input('** EXTRA 1       ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_email = input('** EXTRA 1       ??  ')
+    cust_confirm = input('** EXTRA 2       ??  ')
+    print('                    There are several ways to do this. '
+          '\n                  Ensure you confirmed:'
+          '\n                      -Number of tickets'
+          '\n                      -Show name'
+          '\n                      -Day of the week'
+          '\n                      -Month and day'
+          '\n                      -Time of show'
+          '\n                  ex: A6 DJ SUN 0819 5PM'
+          )
+    sleep(5)
+    print('                    Ensure that you also quote the actual'
+          '\n                    number of seats, not just the three you'
+          '\n                    currently have.')
+    sleep(5)
+    cust_address = input('** ADDRESS       ??  ')
+    while cust_address.lower() != '1313 mockingbird ln':
+        if cust_address.lower() == 'custinfo':
+            print(cust_info)
+            cust_address = input('** ADDRESS       ??  ')
+        elif cust_address.lower() == '1313 mockingbird lane':
+            cust_address = '1313 mockingbird ln'
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_address = input('** ADDRESS       ??  ')
+    cust_city = input('** CITY-STATE    ??  ')
+    while cust_city.lower() != 'chicago, il':
+        if cust_email.lower() == 'custinfo':
+            print(cust_info)
+            cust_email = input('** CITY-STATE    ??  ')
+        elif cust_city.lower() == 'chicago,il':
+            cust_city = 'chicago, il'
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_city = input('** CITY-STATE    ??  ')
+    cust_zip = input('** ZIP CODE      ??  ')
+    while cust_zip.lower() != '60666':
+        if cust_zip.lower() == 'custinfo':
+            print(cust_info)
+            cust_zip = input('** ZIP CODE      ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            cust_zip = input('** ZIP CODE      ??  ')
+    cust_policy = input('** COMMENT       ??  ')
+    while 'cp' not in cust_policy.lower():
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE AGAIN')
+        cust_policy = input('** COMMENT       ??  ')
+    fieldname = input('** EXTENDED FIELD NAME ??  ')
+    while fieldname != '':
+        print('            You do not need to enter anything here in a typical sale, '
+              'enter through')
+        fieldname = input('** EXTENDED FIELD NAME ??  ')
+    fake_options = input('\n\nEXTENDED OPTION NUMBER ??  ')
+    while fake_options != '':
+        print('            You will never enter anything here in any sale,'
+              'enter through')
+        fake_options = input('EXTENDED OPTION NUMBER?  ')
+    reset_options = input('EAP0728M ** RESET OPTION COUNT: OPTION NO. ??  ')
+    while reset_options != '':
+        print('            You do not need to add fees/options to S-CODE sales,'
+              'enter through')
+        reset_options = input('EAP0728M ** RESET OPTION COUNT: OPTION NO. ??  ')
+    print('                At this point, you would normally press escape, for this'
+          '\n                   exercise, press enter.')
+    esc_true = input('MAKE PAYMENT:'
+                             '\n\n** ACCOUNT NUMBER ?? '
+                             )
+    if esc_true != '':
+        print('')
+    s_true = input('\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+                   '\n\n** NEXT (CH5) ??  ')
+    while s_true.lower() not in ('s', 'sell'):
+        print('INVALID COMMAND FOR THIS EXERCISE')
+        s_true = input('\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+                       '\n\n** NEXT (CH5) ??  ')
+    event_code_true = input('** SELL ORDER (CH5) ??  ')
+    while event_code_true.lower() != 'eap0819e':
+        print('INVALID SHOW CODE FOR THIS EXERCISE')
+        event_code_true = input('** SELL ORDER (CH5) ??  ')
+    seat_true = input(
+        '\n    We Bring the Drums'
+        '\n     Djembe! The Show'
+        '\n    You Bring The Beat'
+        '\n      APOLLO THEATER'
+        '\n2540 N LINCOLN - CHICAGO'
+        '\n SUN AUG 19 2018 5:00 PM'
+        '\n(CHGO) DJEMBE! THE SHOW-SUN 5:00PM/APOLLO THEATER\n'
+        '\nSEC 3       3333333333333333'
+        '\n            0000000001111111'
+        '\n   X1       1234567890123456'
+        '\n          A       000-------'
+        '\n          B          00-----'
+        '\n          C 000         ----'
+        '\n          D 5555          --'
+        '\n          E                -'
+        '\n 99.00:A'
+        '\n 64.50:EBG59'
+        '\nCURRENT EVENT:   EAP0819E X1'
+        '\nSEC 3 : FRCTR    P1      FLOOR   FULL'
+        '\nCenter Section 1-6 Rows from Stage'
+        '\nPrice Level 1'
+        '\nMain Floor Seating\n'
+        '\n** SELL ORDER (CH5) ??  '
+    )
+    while seat_true.lower() != 'rc/s301-303/a3#':
+        if seat_true.lower() == 'rc/s301-303/a3':
+            print('            Remember to add the qualifier # at the end')
+            seat_true = input('\n** SELL ORDER (CH5) ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            seat_true = input('\n** SELL ORDER (CH5) ??  ')
+    print('\n            The customer said they learned about the show in the Tribune.\n')
+    qualifier_true = input('QUALIFIERS SPANNING THE ORDER'
+                           '\nSEAT QUALIFIER (? FOR LIST) ??  '
+                           )
+    while qualifier_true.lower() != 'trib':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        qualifier_true = input('QUALIFIERS SPANNING THE ORDER'
+                               '\nSEAT QUALIFIER (? FOR LIST) ??  '
+                               )
+    extra_qualifier = input('SEAT QUALIFIER (? FOR LIST) ??  '
+                            )
+    while extra_qualifier != '':
+        print('            You don\'t need to add any more qualifiers, enter through')
+        extra_qualifier = input('SEAT QUALIFIER (? FOR LIST) ??  '
+                                )
+    extra2_qualifier = input('QUALIFIERS FOR ENTRY 2 ADULT'
+                             '\nSEAT QUALIFIER (? FOR LIST) ??  ')
+    while extra2_qualifier != '':
+        print('            You don\'t need to add anymore qualifiers, enter through')
+        extra2_qualifier = input('QUALIFIERS FOR ENTRY 2 ADULT '
+                                 'SEAT QUALIFIER (? FOR LIST) ??  ')
+    cancel_qualifier = input('QUALIFIERS SPANNING THE ORDER'
+                             '\nTRIB'
+                             '\nQUALIFIERS FOR ENTRY 2 ADULT'
+                             '\nTRIB'
+                             '\nCANCEL QUALIFIER SELECTION ??  '
+                             )
+    while cancel_qualifier != '':
+        print('            You don\'t need to add anymore qualifiers, enter through')
+        cancel_qualifier = input('QUALIFIERS SPANNING THE ORDER'
+                                 '\nTRIB'
+                                 '\nQUALIFIERS FOR ENTRY 2 ADULT'
+                                 '\nTRIB'
+                                 '\nCANCEL QUALIFIER SELECTION ??  '
+                                 )
+    accn_true = input('\nROW C, SEATS 301 TO 303'
+                      '\nTOTAL WITHOUT SERVICE CHARGE = 297.00'
+                      '\n** METHOD OF PAYMENT ??  ')
+    while accn_true.lower() != 'accn':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        accn_true = input('\nROW C, SEATS 301 TO 303'
+                          '\nTOTAL WITHOUT SERVICE CHARGE = 297.00'
+                          '\n** METHOD OF PAYMENT ??  ')
+    accn_cancel = input('TOTAL INCLUDING SERVICE CHARGE = 319.50'
+                        '\nCANCEL OR ALTERNATE PAYMENT METHOD ??  '
+                        )
+    while accn_cancel.lower() != '':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        accn_cancel = input('TOTAL INCLUDING SERVICE CHARGE = 319.50'
+                            '\nCANCEL OR ALTERNATE PAYMENT METHOD ??  '
+                            )
+    payment_method_true = input('\n** ACCOUNT PAYMENT METHOD ??  ')
+    while payment_method_true.lower() != 'visa':
+        if payment_method_true.lower() == 'custinfo':
+            print(cust_info)
+            payment_method_true = input('** ACCOUNT PAYMENT METHOD ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            payment_method_true = input('** ACCOUNT PAYMENT METHOD ??  ')
+    accn_number_true = input('** ACCOUNT NUMBER ??  ')
+    while accn_number_true.lower() != 'la':
+        if accn_number_true.lower() == 'ne':
+            print('            Instead of creating a new account, we want to use'
+                  '          \nthe existing one. Type LA')
+        accn_number_true = input('** ACCOUNT NUMBER ??  ')
+    pay_event = input('23-51867'
+          '\n******************************************************************************'
+          '\n\nDOE/JOHN                       JOHN.DOE@GMAILL.COM                    23-51867'
+          '\n1313 MOCKINGBIRD LN            A6 DJ FRI 0819 5PM             19-APR-18 '
+                      + s_code.upper() +
+          '\nCHICAGO,IL                                                                '
+          '\n60666      5551234567/                                                        '
+          '\n' + cust_policy.upper() + \
+          '\n                                                              639.00      0.00'
+          '\n\nEAM0819E                                                      639.00      0.00'
+          '\nPRINT @ HOME AVAILABLE 19-AUG-18 AT 05:00 am'
+          '\nMOBILE TICKET AVAILABLE 19-AUG-18 AT 05:00 am'
+          '\n1- /X   1(SEC 3 )/R   B,S 301-S 303,A 3                SE     297.00 / 22.50'
+          '\n                   A 3 TRIB'
+          '\n  19-APR-18 ' + s_code.upper() + '                          VISA               '
+          '\n2- /X   1(SEC 3 )/R   C,S 301-S 303,A 1                SE     297.00 / 22.50'
+          '\n                   A 3 TRIB '
+          '\n  19-APR-18 ' + s_code.upper() + '                          VISA               '
+          '\n\nBALANCE DUE: 639.00'
+          '\nATTENTION... AUTHORIZATION NETWORK ENABLED'
+          '\n** PAY TO EVENT ??  ')
+    while pay_event.lower() != 'al':
+        print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+        pay_event = input('** PAY TO EVENT ??  ')
+    card_confirm = input('** BANK CARD ABBREVIATION VISA ??  ')
+    while card_confirm != '':
+        print('            You do not need to enter anything here unless the customer'
+              '\n            changes the payment method, enter through')
+        card_confirm = input('** BANK CARD ABBREVIATION VISA ??  ')
+    card_number = input('** BANK CARD NO. ??  ')
+    while card_number != '1234567887654321':
+        if card_number.lower() == 'custinfo':
+            print(cust_info)
+            card_number = input('** BANK CARD NO. ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            card_number = input('** BANK CARD NO. ??  ')
+    card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+    while card_expiration != '04/20':
+        if card_expiration.lower() == 'custinfo':
+            print(cust_info)
+            card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+        else:
+            print('INVALID COMMAND FOR THIS EXERCISE, PLEASE TRY AGAIN')
+            card_expiration = input('** EXPIRATION DATE (MM/YY) ??  ')
+    check = input('** SELL ORDER (CH5) ??  ')
+    while check != '@':
+        print('            You can type @ after a sale to see the last account')
+        check = input('** SELL ORDER (CH5) ??  ')
+    print('23-51867'
+          '\n******************************************************************************'
+          '\n\nDOE/JOHN                       JOHN.DOE@GMAILL.COM                    23-51867'
+          '\n1313 MOCKINGBIRD LN            A6 DJ FRI 0819 5PM             19-APR-18 '
+                      + s_code.upper() +
+          '\nCHICAGO,IL                                                                '
+          '\n60666      5551234567/                                                        '
+          '\n' + cust_policy.upper() + \
+          '\n                                                              639.00    639.00'
+          '\nEAM0819E                                                      639.00    639.00'
+          '\nPRINT @ HOME AVAILABLE 19-AUG-18 AT 05:00 am'
+          '\nMOBILE TICKET AVAILABLE 19-AUG-18 AT 05:00 am'
+          '\n1- /X   1(SEC 3 )/R   B,S 301-S 303,A 3                SE     297.00 / 22.50'
+          '\n                   A 3 TRIB'
+          '\n  19-APR-18 ' + s_code.upper() + '                          VISA               '
+          '\n2- /X   1(SEC 3 )/R   C,S 301-S 303,A 1                SE     297.00 / 22.50'
+          '\n                   A 3 TRIB '
+          '\n  19-APR-18 ' + s_code.upper() + '                          VISA               '
+        )
+    sleep(2)
+    print('\nSale successful!')
+    sleep(1.5)
+    print('\nReturning to practice selection...')
+    sleep(1)
+    print('\n****************************************************************************')
+    initial_choice()
+
+
+def existing_sale():
+      print('this is an existing account sale')
+
+
+def subscriber_lookup():
+      print('this is a subscriber look-up')
+
+
+def subscriber_sale():
+      print('this is a subscriber sale')
+
+
+def ticket_lookup():
+      print('this is a ticket look-up')
+
+
+def full_retraction():
+      print('this is a full retraction')
+
+
+def partial_retraction():
+      print('this is a partial retraction')
+
+
+def pcode_refund():
+      print('this is a p-code refund')
+
+
+def scode_refund():
+      print('this is a s-code refund')
+
+
+def print_flag():
+      print('this is releasing the print flag')
+
+# Code
+
+print('\nWelcome to TMWin 99 practice!')
+sleep(.5)
+print('Version 0.1')
+sleep(2)
+input('\n\nPlease note that during exercises, the typical ESC function '
+      '\nis not available. Instead, the program will not continue unless '
+      '\nyou enter the correct answer(s). Press enter to continue. ')
+sleep(.5)
+initial_choice()
+
+### SHORT TERM TODOS ###
+
+# update all account prints for up to date displays
+# get a current date display function for account sale dates
+# figure out EXTRA2 check
+# create a check CP length to keep account prints clean
+
+### LONG TERM TODOS ###
+
+# figure out ESC input
+# separate each sale step into its own function
+# format print fonts
+# clear screen at appropriate times (starting an exercise, finishing an exercise)
+# make it completely customizable in code for when new shows come and go
+# create option for a walk-through or practice
+
+### WHEN THE SUN BURNS OUT TODOS ###
+
+# make it completely customizable from the end-user perspective
